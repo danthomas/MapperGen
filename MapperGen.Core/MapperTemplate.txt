@@ -1,0 +1,35 @@
+﻿public class Mapper
+{<#
+
+foreach(var classMap in ClassMaps)
+{
+#>
+    public <#= classMap.TargetTypeFullName #> Map<#= classMap.SourceTypeName #>To<#= classMap.TargetTypeName #>(<#= classMap.SourceTypeFullName #> <#= classMap.SourceVariable #>)
+    {
+        <#= classMap.TargetTypeFullName #> <#= classMap.TargetVariable #> = new <#= classMap.TargetTypeFullName #>
+        {<#
+bool first = true;
+foreach(var propMap in classMap.PropMaps)
+{
+#><#= first ? "" : "," #><#
+
+if(propMap.IsClass)
+{
+#>
+            <#= propMap.TargetProp.Name #> = Map<#= propMap.TargetProp.FullTypeName #>To<#= propMap.TargetProp.FullTypeName #>(<#= classMap.SourceVariable #>.<#= propMap.SourceProp.Name #>)<#
+}
+else
+{
+#>
+            <#= propMap.TargetProp.Name #> = <#= classMap.SourceVariable #>.<#= propMap.SourceProp.Name #><#
+}
+first = false;
+}
+#>
+        };
+
+        return <#= classMap.TargetVariable #>;
+    }<#
+}
+	#>
+}

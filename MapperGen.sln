@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapperGen", "MapperGen\MapperGen.csproj", "{12553291-2054-4BA7-B3B0-2769C4FC9CE2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapperGen.Core", "MapperGen.Core\MapperGen.Core.csproj", "{223D35F1-6C1E-4F6C-A4CA-999058BA87A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapperGen.Tests", "MapperGet.Tests\MapperGen.Tests.csproj", "{6655270E-1276-4A7E-B3C8-542036873C4D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{12553291-2054-4BA7-B3B0-2769C4FC9CE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12553291-2054-4BA7-B3B0-2769C4FC9CE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12553291-2054-4BA7-B3B0-2769C4FC9CE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12553291-2054-4BA7-B3B0-2769C4FC9CE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{223D35F1-6C1E-4F6C-A4CA-999058BA87A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{223D35F1-6C1E-4F6C-A4CA-999058BA87A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{223D35F1-6C1E-4F6C-A4CA-999058BA87A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{223D35F1-6C1E-4F6C-A4CA-999058BA87A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6655270E-1276-4A7E-B3C8-542036873C4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6655270E-1276-4A7E-B3C8-542036873C4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6655270E-1276-4A7E-B3C8-542036873C4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6655270E-1276-4A7E-B3C8-542036873C4D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
