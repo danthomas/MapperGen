@@ -39,8 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builder.cs" />
     <Compile Include="Generator.cs" />
-    <Compile Include="GeneratorOld.cs" />
     <Compile Include="MapperGenBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,4 +1,6 @@
-﻿public class Mapper
+﻿using System.Linq;
+
+public class Mapper
 {<#
 
 foreach(var classMap in ClassMaps)
@@ -9,24 +11,33 @@ foreach(var classMap in ClassMaps)
         <#= classMap.TargetTypeFullName #> <#= classMap.TargetVariable #> = new <#= classMap.TargetTypeFullName #>
         {<#
 bool first = true;
-foreach(var propMap in classMap.PropMaps)
+foreach(var propMap in classMap.PropMaps.Where(x => !x.IsComposite))
 {
 #><#= first ? "" : "," #><#
 
-if(propMap.IsClass)
-{
-#>
-            <#= propMap.TargetProp.Name #> = Map<#= propMap.TargetProp.FullTypeName #>To<#= propMap.TargetProp.FullTypeName #>(<#= classMap.SourceVariable #>.<#= propMap.SourceProp.Name #>)<#
-}
-else
-{
 #>
             <#= propMap.TargetProp.Name #> = <#= classMap.SourceVariable #>.<#= propMap.SourceProp.Name #><#
-}
+
 first = false;
 }
 #>
         };
+<#
+foreach(var propMap in classMap.PropMaps.Where(x => x.IsComposite))
+{
+if(typeof(IEnumerable).IsAssignableFrom(propMap.SourceProp.Type))
+{
+#>
+        if (<#= classMap.SourceVariable #>.<#= propMap.SourceProp.Name #> != null)
+            <#= classMap.TargetVariable #>.<#= propMap.TargetProp.Name #> = <#= classMap.SourceVariable #>.<#= propMap.SourceProp.Name #>.Select(Map<#= propMap.SourceProp.ElementType.Name #>To<#= propMap.TargetProp.ElementType.Name #>)<#= propMap.TargetProp.EnumerableType == EnumerableType.Array ? ".ToArray()" : "" #><#= propMap.TargetProp.EnumerableType == EnumerableType.List ? ".ToList()" : "" #>;<#
+}
+else
+{
+#>
+        if (<#= classMap.SourceVariable #>.<#= propMap.SourceProp.Name #> != null)
+            <#= classMap.TargetVariable #>.<#= propMap.TargetProp.Name #> = Map<#= propMap.SourceProp.TypeName #>To<#= propMap.TargetProp.TypeName #>(<#= classMap.SourceVariable #>.<#= propMap.SourceProp.Name #>);<#
+}
+}#>
 
         return <#= classMap.TargetVariable #>;
     }<#

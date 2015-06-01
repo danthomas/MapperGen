@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -13,18 +14,38 @@ namespace MapperGen.Core
         {
             ClassMaps = new List<ClassMap>();
 
-            ClassMap classMap = new ClassMap(sourceType, targetType);
-
-            ClassMaps.Add(classMap);
-
-            foreach (PropMap propMap in classMap.PropMaps.Where(x => x.IsClass))
-            {
-                classMap = new ClassMap(propMap.SourceProp.Type, propMap.TargetProp.Type);
-
-                ClassMaps.Add(classMap);
-            }
+            AddClassMaps(sourceType, targetType);
 
             return Generate();
+        }
+
+        private void AddClassMaps(Type sourceType, Type targetType)
+        {
+            if (!ClassMaps.Any(item => item.SourceType == sourceType && item.TargetType == targetType))
+            {
+                ClassMap classMap = new ClassMap(sourceType, targetType);
+
+                ClassMaps.Add(classMap);
+
+                foreach (PropMap propMap in classMap.PropMaps.Where(x => x.IsComposite))
+                {
+                    if (typeof(IEnumerable).IsAssignableFrom(propMap.SourceProp.Type))
+                    {
+                        if (propMap.SourceProp.Type.IsGenericType)
+                        {
+                            AddClassMaps(propMap.SourceProp.Type.GetGenericArguments()[0], propMap.TargetProp.Type.GetGenericArguments()[0]);
+                        }
+                        else if (propMap.SourceProp.Type.IsArray)
+                        {
+                            AddClassMaps(propMap.SourceProp.Type.GetElementType(), propMap.TargetProp.Type.GetElementType());
+                        }
+                    }
+                    else
+                    {
+                        AddClassMaps(propMap.SourceProp.Type, propMap.TargetProp.Type);
+                    }
+                }
+            }
         }
 
         public List<ClassMap> ClassMaps { get; set; }
@@ -78,12 +99,12 @@ namespace MapperGen.Core
         {
             SourceProp = sourceProp;
             TargetProp = targetProp;
-            IsClass = sourceProp.Type.IsClass && sourceProp.Type != typeof(String);
+            IsComposite = sourceProp.Type.IsClass && sourceProp.Type != typeof(String);
         }
 
         public Prop SourceProp { get; set; }
         public Prop TargetProp { get; set; }
-        public bool IsClass { get; set; }
+        public bool IsComposite { get; set; }
     }
 
     public class Prop
@@ -92,11 +113,34 @@ namespace MapperGen.Core
         {
             Name = propertyInfo.Name;
             Type = propertyInfo.PropertyType;
+            TypeName = propertyInfo.PropertyType.Name;
             FullTypeName = propertyInfo.PropertyType.FullName.Replace("+", ".");
+
+            if (propertyInfo.PropertyType.IsArray)
+            {
+                ElementType = propertyInfo.PropertyType.GetElementType();
+                EnumerableType = EnumerableType.Array;
+            }
+            else if (typeof (IList).IsAssignableFrom(propertyInfo.PropertyType) && propertyInfo.PropertyType != typeof(String))
+            {
+                ElementType = propertyInfo.PropertyType.GetGenericArguments()[0];
+                EnumerableType = EnumerableType.List;
+            }
+
         }
 
+        public EnumerableType EnumerableType { get; set; }
+        public Type ElementType { get; set; }
+
+        public string TypeName { get; set; }
         public string Name { get; set; }
         public Type Type { get; set; }
         public string FullTypeName { get; set; }
+    }
+
+    public enum EnumerableType
+    {
+        Array,
+        List
     }
 }
