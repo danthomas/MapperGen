@@ -9,10 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapperGen.Core", "MapperGen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapperGen.Tests", "MapperGet.Tests\MapperGen.Tests.csproj", "{6655270E-1276-4A7E-B3C8-542036873C4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gen.Core", "Gen.Core\Gen.Core.csproj", "{7A7DD520-34AC-46C3-AF77-F2F67F2F6860}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gen.Tests", "Gen.Tests\Gen.Tests.csproj", "{EA2B84DB-F0FB-4383-8C9F-6B62516E1665}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,14 +27,6 @@ Global
 		{6655270E-1276-4A7E-B3C8-542036873C4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6655270E-1276-4A7E-B3C8-542036873C4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6655270E-1276-4A7E-B3C8-542036873C4D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7A7DD520-34AC-46C3-AF77-F2F67F2F6860}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7A7DD520-34AC-46C3-AF77-F2F67F2F6860}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7A7DD520-34AC-46C3-AF77-F2F67F2F6860}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7A7DD520-34AC-46C3-AF77-F2F67F2F6860}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EA2B84DB-F0FB-4383-8C9F-6B62516E1665}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EA2B84DB-F0FB-4383-8C9F-6B62516E1665}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EA2B84DB-F0FB-4383-8C9F-6B62516E1665}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EA2B84DB-F0FB-4383-8C9F-6B62516E1665}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
